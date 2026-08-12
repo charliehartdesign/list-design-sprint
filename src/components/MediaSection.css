@@ -1,0 +1,115 @@
+.media-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.media-section__main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Figma: ~64px between title and filled media grid */
+.media-section__main--filled {
+  gap: 64px;
+}
+
+.upload-area--dragging {
+  border-color: var(--text-primary);
+  background: var(--surface-tertiary);
+}
+
+/* Figma filled grid: ~3 cols, 204×249 tiles, ~21–24px gaps */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 21px;
+  width: 100%;
+}
+
+.media-grid__tile {
+  position: relative;
+  aspect-ratio: 204 / 249;
+  overflow: clip;
+  border-radius: 0;
+  background: var(--surface-tertiary);
+  padding: 0;
+  border: 0;
+}
+
+.media-grid__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media-grid__tile--add {
+  display: grid;
+  place-items: center;
+  background: var(--surface-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+
+.media-grid__tile--add:hover {
+  background: #e7e2df;
+  color: var(--text-primary);
+}
+
+/* Figma field score panel — sits to the right of the media column */
+.media-practices {
+  position: absolute;
+  /* Align with grid top: title line-height (32) + filled gap (64) */
+  top: calc(32px + 64px);
+  left: calc(100% + 48px);
+  width: 226px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.media-practices__heading {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--text-primary);
+}
+
+.media-practices__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.media-practices__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-primary);
+}
+
+.media-practices__row .icon {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .media-practices {
+    position: static;
+    width: 100%;
+    top: auto;
+    left: auto;
+  }
+}

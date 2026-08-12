@@ -1,0 +1,70 @@
+.question-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.question-nav__progress {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Segmented pill: two halves sharing one capsule */
+.question-nav__controls {
+  display: inline-flex;
+  align-items: stretch;
+  height: 40px;
+  gap: 1px;
+  padding: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: var(--border-divider);
+}
+
+.question-nav__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--surface-tertiary);
+  color: var(--text-primary);
+  transition: background var(--motion-fast) var(--ease-standard),
+    opacity var(--motion-fast) var(--ease-standard);
+}
+
+.question-nav__btn--up {
+  border-radius: 9999px 0 0 9999px;
+}
+
+.question-nav__btn--down {
+  border-radius: 0 9999px 9999px 0;
+}
+
+.question-nav__btn--up .icon {
+  transform: rotate(180deg);
+}
+
+.question-nav__btn:hover:not(:disabled) {
+  background: #e7e2df;
+}
+
+.question-nav__btn:active:not(:disabled) {
+  background: #ddd7d3;
+}
+
+.question-nav__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .question-nav__progress {
+    display: none;
+  }
+}
