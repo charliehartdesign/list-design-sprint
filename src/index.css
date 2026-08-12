@@ -143,7 +143,8 @@
 
   --content-width: 656px;
   --side-nav-width: 221px;
-  --form-offset-from-nav: 168px;
+  /* Figma: form column ~470, side panel 221 → ~249px gutter */
+  --form-offset-from-nav: 249px;
 }
 
 *,
@@ -158,6 +159,15 @@ html {
   /* Leave room so previous/next peeks stay in view when a step snaps */
   scroll-padding-top: calc(var(--chrome-top) + var(--neighbor-peek));
   scroll-padding-bottom: calc(var(--chrome-bottom) + var(--neighbor-peek));
+}
+
+/* Contracted: continuous scroll, denser section rhythm (Figma review spacing cue) */
+/* Contracted uses the Review form layout (Figma 666:75480), not denser Typeform */
+html[data-density='contracted'] {
+  scroll-snap-type: none;
+  scroll-padding-top: var(--chrome-top);
+  scroll-padding-bottom: var(--chrome-bottom);
+  --neighbor-peek: 0px;
 }
 
 html,

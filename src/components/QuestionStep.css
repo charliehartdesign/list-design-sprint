@@ -40,6 +40,15 @@
   overflow: visible;
 }
 
+.question-step--contracted {
+  cursor: default;
+  scroll-snap-align: none;
+}
+
+.question-step--contracted .question-step__inner {
+  pointer-events: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .question-step {
     will-change: auto;

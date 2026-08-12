@@ -1,51 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import { useQuestionFocused } from './QuestionStep'
 import './AiOrangeSquare.css'
 
 /**
  * AI Design Language `Ai-Loader-Entry` (60fps):
  * scale up → bounce → un-tilt from −90° into the resting orange square.
- * Replays whenever the mark re-enters the viewport.
+ *
+ * Plays only when the parent QuestionStep is focused (Focus mode on that field),
+ * so the motion isn’t missed while the section is still peeking off-screen.
  */
 export function AiOrangeSquare({
   size = 12.5,
   className = '',
   'aria-hidden': ariaHidden = true,
 }) {
-  const rootRef = useRef(null)
+  const questionFocused = useQuestionFocused()
   const [playKey, setPlayKey] = useState(0)
   const [visible, setVisible] = useState(false)
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
-    const node = rootRef.current
-    if (!node) return undefined
+    if (questionFocused) {
+      setVisible(true)
+      setPlayKey((k) => k + 1)
+      return undefined
+    }
 
-    let wasVisible = false
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const next = entry.isIntersecting && entry.intersectionRatio >= 0.4
-        if (next && !wasVisible) {
-          setVisible(true)
-          setPlayKey((k) => k + 1)
-        } else if (!next && wasVisible) {
-          setVisible(false)
-        }
-        wasVisible = next
-      },
-      { threshold: [0, 0.4, 0.75] },
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
+    setVisible(false)
+    return undefined
+  }, [questionFocused])
 
   // Artboard bounce (−60px) relative to the 150px Lottie square
   const bounce = -0.4 * size
 
   return (
     <span
-      ref={rootRef}
       className={`ai-orange-square ${className}`.trim()}
       style={{ width: size, height: size }}
       aria-hidden={ariaHidden}

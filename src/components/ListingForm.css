@@ -3,10 +3,14 @@
   grid-template-columns: var(--side-nav-width) minmax(0, var(--content-width));
   column-gap: var(--form-offset-from-nav);
   width: 100%;
+  max-width: calc(
+    24px + var(--side-nav-width) + var(--form-offset-from-nav) + var(--content-width) + 298px
+  );
   margin: 0;
   /* Extra right pad so Best practices panel (226 + 48 gap) isn't clipped */
   padding: 0 298px 140px 24px;
   justify-content: start;
+  justify-items: start;
   align-items: start;
   overflow: visible;
 }
@@ -18,7 +22,7 @@
   flex-direction: column;
   gap: 0;
   width: var(--side-nav-width);
-  padding-top: var(--question-top-pad);
+  padding-top: 24px;
 }
 
 .side-nav__item {
@@ -42,17 +46,19 @@
 
 .listing-main {
   position: relative;
-  width: min(100%, var(--content-width));
+  width: 100%;
+  max-width: var(--content-width);
   justify-self: start;
   overflow: visible;
 }
 
-/* Figma 819:128638 — locked bottom-left, 24px page margin, above footer */
+/* Figma 819:131040 / 819:131357 — locked bottom-left preview */
 .listing-preview-slot {
   position: fixed;
   left: 24px;
   bottom: calc(var(--chrome-bottom) + 24px);
-  width: 294px;
+  width: 200px;
+  min-height: 200px;
   pointer-events: none;
   z-index: 16;
 }
@@ -60,22 +66,22 @@
 .listing-preview {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 294px;
+  gap: 16px;
+  width: 200px;
   pointer-events: none;
 }
 
 .listing-preview__media {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   background: var(--surface-tertiary);
 }
 
 .listing-preview__meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
   width: 100%;
 }
 
@@ -83,20 +89,28 @@
   margin: 0;
   font-family: var(--clg-title-larger-font-family);
   font-weight: var(--clg-title-larger-font-weight);
-  font-size: var(--clg-title-larger-font-size);
-  line-height: var(--clg-title-larger-line-height);
-  letter-spacing: var(--clg-title-larger-letter-spacing);
+  /* Scaled down from Title Larger so the mini card doesn’t dominate */
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.listing-preview__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
 .listing-preview__price,
 .listing-preview__desc {
   margin: 0;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: -0.16px;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.13px;
 }
 
 .listing-preview__price {
@@ -108,20 +122,23 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  color: var(--text-primary);
 }
 
 .listing-preview__swatches {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 4px;
+  min-height: 17px;
+  margin-top: 0;
 }
 
 .listing-preview__swatch {
   width: 12px;
   height: 12px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-divider);
+  box-sizing: border-box;
 }
 
 .listing-form {
@@ -129,7 +146,9 @@
   flex-direction: column;
   /* Figma: 100px between Media↔Category, Options↔Quantity, and siblings */
   gap: var(--question-section-gap);
-  width: min(100%, var(--content-width));
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0;
   padding-bottom: 48px;
   overflow: visible;
 }
@@ -248,6 +267,40 @@
   max-width: 357px;
 }
 
+.tip p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.tip--category {
+  max-width: 420px;
+}
+
+.category-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  max-width: 656px;
+}
+
+.category-empty .field-block {
+  gap: 16px;
+}
+
+/* Same hug-content rule as Add variation / Add custom option */
+.category-empty .field-block > .btn {
+  align-self: flex-start;
+  width: auto;
+}
+
+.category-empty .field-help {
+  margin: 0;
+}
+
 .tip__heading {
   display: flex;
   align-items: center;
@@ -344,8 +397,13 @@
   color: var(--text-primary);
 }
 
-/* Listing title — Collage Display Large */
+/* Listing title — Collage Display Large, multi-line */
 .display-input--title {
+  display: block;
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  field-sizing: content;
   font-family: var(--clg-display-large-font-family);
   font-weight: var(--clg-display-large-font-weight);
   font-size: var(--clg-display-large-font-size);
@@ -354,10 +412,13 @@
   border-bottom: 1px dotted #d5cdc8;
   padding: 8px 0 4px;
   font-feature-settings: "lnum" 1, "pnum" 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: var(--clg-display-large-line-height);
 }
 
 .display-input--title::placeholder {
-  color: var(--text-primary);
+  color: var(--text-tertiary);
   opacity: 1;
 }
 
@@ -384,19 +445,6 @@
 .display-input--figure:focus,
 .display-input-wrap:focus-within .display-input--figure {
   color: var(--text-primary);
-}
-
-/* Quantity uses a standard input, not Display Large */
-.display-input--quantity {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: -0.16px;
-  max-width: 232px;
-  min-height: 48px;
-  padding: 12px;
-  border: 1px solid var(--input-border);
-  border-radius: var(--radius-md);
 }
 
 .suggest-row {
@@ -636,10 +684,6 @@
 
   .listing-main {
     width: 100%;
-  }
-
-  .listing-preview-slot {
-    display: none;
   }
 }
 

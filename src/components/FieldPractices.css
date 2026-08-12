@@ -1,0 +1,80 @@
+.field-practices {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 48px);
+  width: 226px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.field-practices__heading {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--text-primary);
+}
+
+.field-practices__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-practices__row-slot {
+  min-height: 16px;
+}
+
+.field-practices__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-primary);
+}
+
+.field-practices__row .icon {
+  flex-shrink: 0;
+}
+
+.field-practices__row--thinking {
+  color: var(--text-secondary);
+}
+
+.field-practices__pulse {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-divider);
+  box-sizing: border-box;
+  animation: field-practices-think 0.9s var(--ease-standard) infinite;
+}
+
+@keyframes field-practices-think {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 1200px) {
+  .field-practices {
+    position: static;
+    width: 100%;
+    left: auto;
+    top: auto;
+    pointer-events: auto;
+  }
+}

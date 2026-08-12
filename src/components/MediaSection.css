@@ -63,53 +63,7 @@
   color: var(--text-primary);
 }
 
-/* Figma field score panel — sits to the right of the media column */
-.media-practices {
-  position: absolute;
-  /* Align with grid top: title line-height (32) + filled gap (64) */
+/* Positioning override — FieldPractices supplies the shared rail styles */
+.media-section .media-practices {
   top: calc(32px + 64px);
-  left: calc(100% + 48px);
-  width: 226px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.media-practices__heading {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 16px;
-  color: var(--text-primary);
-}
-
-.media-practices__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.media-practices__row {
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  font-size: 14px;
-  line-height: 16px;
-  color: var(--text-primary);
-}
-
-.media-practices__row .icon {
-  flex-shrink: 0;
-}
-
-@media (max-width: 1200px) {
-  .media-practices {
-    position: static;
-    width: 100%;
-    top: auto;
-    left: auto;
-  }
 }

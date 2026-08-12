@@ -1,11 +1,9 @@
 import { useCallback, useRef, useState } from 'react'
 import { Icon } from './Icon'
-import { AiOrangeSquare } from './AiOrangeSquare'
+import { FieldPractices } from './FieldPractices'
 import addphoto from '../assets/icons/addphoto.svg'
 import add from '../assets/icons/add.svg'
 import chevron from '../assets/icons/chevron.svg'
-import check from '../assets/icons/check.svg'
-import scoreClose from '../assets/icons/score-close.svg'
 import media1 from '../assets/media/media-1.png'
 import media2 from '../assets/media/media-2.png'
 import media3 from '../assets/media/media-3.png'
@@ -40,15 +38,14 @@ function filesToMedia(fileList) {
 
 /**
  * Empty dropzone → filled 3-col media grid + Best practices panel (Figma 819:132976).
+ * Controlled by parent `items` so state survives density switches.
  */
-export function MediaSection({ mediaRef, onMediaChange }) {
-  const [items, setItems] = useState([])
+export function MediaSection({ mediaRef, items = [], onMediaChange }) {
   const [dragging, setDragging] = useState(false)
   const inputRef = useRef(null)
 
   const commit = useCallback(
     (next) => {
-      setItems(next)
       onMediaChange?.(next)
     },
     [onMediaChange],
@@ -119,13 +116,6 @@ export function MediaSection({ mediaRef, onMediaChange }) {
                 <Icon src={chevron} size={16} />
               </span>
             </button>
-            <div className="tip">
-              <div className="tip__heading">
-                <span>Tip</span>
-                <AiOrangeSquare size={12.5} />
-              </div>
-              <p>Start with media and get help filling out the rest</p>
-            </div>
           </>
         ) : (
           <div
@@ -166,23 +156,12 @@ export function MediaSection({ mediaRef, onMediaChange }) {
         />
       </div>
 
-      {filled ? (
-        <aside className="media-practices" aria-label="Best practices">
-          <p className="media-practices__heading">Best practices</p>
-          <ul className="media-practices__list">
-            {practices.map((practice) => (
-              <li key={practice.id} className="media-practices__row">
-                <Icon
-                  src={practice.done ? check : scoreClose}
-                  size={16}
-                  alt={practice.done ? 'Complete' : 'Incomplete'}
-                />
-                <span>{practice.label}</span>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      ) : null}
+      <FieldPractices
+        active={filled}
+        items={practices}
+        className="media-practices"
+        style={{ top: 'calc(32px + 64px)' }}
+      />
     </div>
   )
 }

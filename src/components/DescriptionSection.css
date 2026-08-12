@@ -1,0 +1,9 @@
+.description-section {
+  position: relative;
+  width: 100%;
+}
+
+.description-section__practices {
+  /* Align roughly with the textarea, under the label + help */
+  top: 88px;
+}
