@@ -21,7 +21,8 @@ export function QuestionStep({
   density = 'expanded',
 }) {
   const ref = useRef(null)
-  const [focused, setFocused] = useState(false)
+  const isFirst = !prevId
+  const [focused, setFocused] = useState(isFirst)
   const { duration, ease, question } = motionTokens
   const contracted = density === 'contracted'
 
@@ -43,10 +44,17 @@ export function QuestionStep({
       return () => observer.disconnect()
     }
 
+    // First question starts focused — announce so parent hides the top veil
+    if (isFirst) {
+      onFocusChange?.(id, true)
+    }
+
     const peek = Number.parseFloat(
       getComputedStyle(document.documentElement).getPropertyValue('--neighbor-peek'),
     ) || 132
     const inset = Math.round(peek * 0.55)
+    // No top inset on the first step so its header isn’t dimmed under the chrome
+    const topInset = isFirst ? 0 : inset
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -56,13 +64,13 @@ export function QuestionStep({
       },
       {
         threshold: [0.2, 0.4, 0.6, 0.8],
-        rootMargin: `-${inset}px 0px -${inset}px 0px`,
+        rootMargin: `-${topInset}px 0px -${inset}px 0px`,
       },
     )
 
     observer.observe(node)
     return () => observer.disconnect()
-  }, [id, onFocusChange, contracted])
+  }, [id, onFocusChange, contracted, isFirst])
 
   useEffect(() => {
     if (!focused || contracted) return undefined

@@ -126,7 +126,7 @@ export default function App() {
         />
       </main>
 
-      {!contracted && activeQuestion !== QUESTION_STEPS[0] ? (
+      {!contracted && stepIndex > 0 ? (
         <div className="question-veil question-veil--top" aria-hidden="true" />
       ) : null}
       {!contracted ? (
