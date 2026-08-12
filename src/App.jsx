@@ -7,6 +7,7 @@ import { scrollToQuestion } from './components/QuestionNav'
 import etsy from './assets/icons/etsy.svg'
 import contractIcon from './assets/icons/contract.svg'
 import expandIcon from './assets/icons/expand.svg'
+import closeIcon from './assets/icons/close-nav.svg'
 import './App.css'
 import './components/ui.css'
 
@@ -103,9 +104,14 @@ export default function App() {
           >
             <Icon src={contracted ? expandIcon : contractIcon} size={20} />
           </button>
-          <Button variant="tertiary" size="base" className="top-bar__save">
-            Save & exit
-          </Button>
+          <button
+            type="button"
+            className="top-bar__close"
+            aria-label="Save and exit"
+            title="Save and exit"
+          >
+            <Icon src={closeIcon} size={20} />
+          </button>
         </div>
       </header>
 

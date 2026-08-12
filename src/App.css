@@ -30,8 +30,9 @@
   gap: 6px;
 }
 
-/* Figma header: tertiary circular density toggle + Save & exit */
-.top-bar__density {
+/* Figma header: circular density + close controls */
+.top-bar__density,
+.top-bar__close {
   display: grid;
   place-items: center;
   width: 48px;
@@ -45,19 +46,8 @@
   transition: background var(--motion-fast) var(--ease-standard);
 }
 
-.top-bar__density:hover {
-  background: #e7e2df;
-}
-
-.top-bar__save.btn--tertiary {
-  background: var(--surface-tertiary);
-  text-decoration: none;
-  padding-inline: 18px;
-  border-radius: var(--radius-full);
-  min-height: 48px;
-}
-
-.top-bar__save.btn--tertiary:hover {
+.top-bar__density:hover,
+.top-bar__close:hover {
   background: #e7e2df;
 }
 
