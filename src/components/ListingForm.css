@@ -58,7 +58,6 @@
   left: 24px;
   bottom: calc(var(--chrome-bottom) + 24px);
   width: 200px;
-  min-height: 200px;
   pointer-events: none;
   z-index: 16;
 }
@@ -96,6 +95,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.listing-preview__title--placeholder {
+  color: var(--text-tertiary);
 }
 
 .listing-preview__body {

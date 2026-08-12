@@ -74,7 +74,8 @@ export function QuestionStep({
 
     const onKeyDown = (event) => {
       if (event.key === 'Enter' && !event.shiftKey) {
-        if (event.target?.tagName === 'TEXTAREA') return
+        // Don’t advance while typing in a field (tags, materials, price, etc.)
+        if (isTypingTarget(event.target)) return
         if (event.target?.tagName === 'BUTTON') return
         if (!nextId) return
         event.preventDefault()

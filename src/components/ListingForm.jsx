@@ -1,19 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { QuestionStep } from './QuestionStep'
 import { MediaSection } from './MediaSection'
-import {
-  MediaPreviewSwoop,
-  getPreviewMediaDest,
-  snapshotMediaTiles,
-} from './MediaPreviewSwoop'
 import { DescriptionSection } from './DescriptionSection'
 import { ReviewForm } from './ReviewForm'
 import { AiOrangeSquare } from './AiOrangeSquare'
 import { Button } from './Button'
 import { Icon } from './Icon'
+import { PriceTip } from './PriceTip'
+import { ChipInput } from './ChipInput'
 import { motionTokens } from '../motion/tokens'
-import close from '../assets/icons/close.svg'
 import add from '../assets/icons/add.svg'
 import chevron from '../assets/icons/chevron.svg'
 import edit from '../assets/icons/edit.svg'
@@ -96,26 +92,6 @@ function questionLinks(id) {
   }
 }
 
-function Chip({ label, selected, onRemove, onAdd }) {
-  if (selected) {
-    return (
-      <span className="chip chip--selected">
-        <span>{label}</span>
-        <button type="button" className="chip__remove" onClick={onRemove} aria-label={`Remove ${label}`}>
-          <Icon src={close} size={16} />
-        </button>
-      </span>
-    )
-  }
-
-  return (
-    <button type="button" className="chip chip--suggest" onClick={onAdd}>
-      <Icon src={add} size={12} />
-      <span>{label}</span>
-    </button>
-  )
-}
-
 function SelectableCard({ label, selected, onClick }) {
   return (
     <button
@@ -163,13 +139,7 @@ export function ListingForm({
   const [whoMade, setWhoMade] = useState('I did')
   const [whatIsIt, setWhatIsIt] = useState('A finished product')
   const [showPreview, setShowPreview] = useState(false)
-  const [previewSwooping, setPreviewSwooping] = useState(false)
-  const [swoopTiles, setSwoopTiles] = useState([])
-  const [swoopDest, setSwoopDest] = useState(null)
   const [mediaItems, setMediaItems] = useState([])
-  const previewLockedRef = useRef(false)
-  const lastTilesRef = useRef([])
-  const previewSlotRef = useRef(null)
   const reducedMotion = useReducedMotion()
   const handleQuestionFocus = useCallback(
     (id, focused) => {
@@ -186,91 +156,38 @@ export function ListingForm({
 
   const { duration, ease } = motionTokens
 
-  // Keep a fresh snapshot of grid tiles while media is on-screen
-  useEffect(() => {
-    if (density === 'contracted' || !mediaNode || !mediaItems.length) return undefined
-
-    const capture = () => {
-      const tiles = snapshotMediaTiles(mediaNode, mediaItems)
-      if (tiles.length) lastTilesRef.current = tiles
-    }
-
-    capture()
-    window.addEventListener('scroll', capture, { passive: true })
-    window.addEventListener('resize', capture)
-    return () => {
-      window.removeEventListener('scroll', capture)
-      window.removeEventListener('resize', capture)
-    }
-  }, [mediaNode, mediaItems, density])
-
   // Lock the bottom-left preview once media scrolls out of view (Focus mode only).
   useEffect(() => {
     if (density === 'contracted') {
-      previewLockedRef.current = false
       setShowPreview(false)
-      setPreviewSwooping(false)
       onPreviewChange?.(false)
       return undefined
     }
 
     if (!mediaItems.length || !mediaNode) {
-      previewLockedRef.current = false
       setShowPreview(false)
-      setPreviewSwooping(false)
       onPreviewChange?.(false)
       return undefined
     }
 
-    const sync = (isIntersecting) => {
-      const locked = !isIntersecting
-
-      if (locked && !previewLockedRef.current) {
-        // Prefer the last on-screen scroll snapshot so tiles still feel nearby
-        const live = snapshotMediaTiles(mediaNode, mediaItems)
-        const tiles = lastTilesRef.current.length
-          ? lastTilesRef.current
-          : live
-        const dest = getPreviewMediaDest(previewSlotRef.current)
-
-        if (!reducedMotion && tiles.length) {
-          setSwoopTiles(tiles)
-          setSwoopDest(dest)
-          setPreviewSwooping(true)
-        } else {
-          setPreviewSwooping(false)
-        }
-      }
-
-      if (!locked) {
-        setPreviewSwooping(false)
-      }
-
-      previewLockedRef.current = locked
+    const sync = (visible) => {
+      const locked = !visible
       setShowPreview(locked)
       onPreviewChange?.(locked)
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Lock once the grid is mostly gone — still early enough for a visible swoop
-        sync(entry.intersectionRatio > 0.12)
-      },
-      { threshold: [0, 0.08, 0.12, 0.25, 0.5, 1], rootMargin: '0px' },
+      ([entry]) => sync(entry.isIntersecting),
+      { threshold: 0, rootMargin: '0px' },
     )
 
     observer.observe(mediaNode)
     const rect = mediaNode.getBoundingClientRect()
-    const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)
-    const ratio = rect.height > 0 ? Math.max(0, visibleHeight) / rect.height : 0
-    sync(ratio > 0.12)
+    const inView = rect.bottom > 0 && rect.top < window.innerHeight
+    sync(inView)
 
     return () => observer.disconnect()
-  }, [mediaItems, mediaNode, onPreviewChange, density, reducedMotion])
-
-  const handleSwoopComplete = useCallback(() => {
-    setPreviewSwooping(false)
-  }, [])
+  }, [mediaItems.length, mediaNode, onPreviewChange, density])
 
   const handleEditSection = useCallback(
     (sectionId) => {
@@ -333,87 +250,67 @@ export function ListingForm({
     <>
       {/* Fixed bottom-left preview — Focus mode only */}
       {!contracted ? (
-        <>
-          <MediaPreviewSwoop
-            active={previewSwooping}
-            tiles={swoopTiles}
-            dest={swoopDest}
-            onComplete={handleSwoopComplete}
-          />
-          <div className="listing-preview-slot" ref={previewSlotRef}>
-            <AnimatePresence>
-              {showPreview ? (
-                <motion.div
-                  className="listing-preview"
-                  aria-hidden="true"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, y: 12 }}
-                  transition={{ duration: duration.fast, ease: ease.soft }}
-                >
-                  <motion.div
-                    className="listing-preview__media"
-                    style={
-                      previewSrc
-                        ? {
-                            backgroundImage: `url(${previewSrc})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                          }
-                        : undefined
-                    }
-                    initial={
-                      previewSwooping || reducedMotion
-                        ? { opacity: previewSwooping ? 0 : 1 }
-                        : { opacity: 0, scale: 0.92 }
-                    }
-                    animate={{ opacity: previewSwooping ? 0 : 1, scale: 1 }}
-                    transition={{
-                      duration: duration.fast,
-                      ease: ease.soft,
-                      delay: previewSwooping ? 0 : 0.05,
-                    }}
-                  />
-                  <motion.div
-                    className="listing-preview__meta"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{
-                      opacity: previewSwooping ? 0 : 1,
-                      y: previewSwooping ? 10 : 0,
-                    }}
-                    transition={{
-                      duration: duration.base,
-                      ease: ease.soft,
-                      delay: previewSwooping ? 0 : 0.12,
-                    }}
-                  >
-                    <p className="listing-preview__title">
-                      {title || 'Hand block printed table r...'}
+        <div className="listing-preview-slot">
+          <AnimatePresence>
+            {showPreview ? (
+              <motion.div
+                className="listing-preview"
+                aria-hidden="true"
+                initial={
+                  reducedMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 12 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                exit={
+                  reducedMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, y: 8 }
+                }
+                transition={{
+                  duration: reducedMotion ? 0 : duration.base,
+                  ease: ease.soft,
+                }}
+              >
+                <div
+                  className="listing-preview__media"
+                  style={
+                    previewSrc
+                      ? {
+                          backgroundImage: `url(${previewSrc})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                        }
+                      : undefined
+                  }
+                />
+                <div className="listing-preview__meta">
+                  <p className={`listing-preview__title${!title.trim() ? ' listing-preview__title--placeholder' : ''}`}>
+                    {title.trim() || 'Title'}
+                  </p>
+                  <div className="listing-preview__body">
+                    <p className="listing-preview__price">
+                      {price ? `$${price}` : 'Price'}
                     </p>
-                    <div className="listing-preview__body">
-                      <p className="listing-preview__price">
-                        {price ? `$${price}` : 'Price'}
-                      </p>
-                      <p className="listing-preview__desc">
-                        {description ||
-                          'This table runner features my hand-carved, block printed Floral Dots pattern in ...'}
-                      </p>
-                      <div className="listing-preview__swatches" aria-hidden="true">
-                        {SWATCHES.map((color) => (
-                          <span
-                            key={color}
-                            className="listing-preview__swatch"
-                            style={{ background: color }}
-                          />
-                        ))}
-                      </div>
+                    <p className="listing-preview__desc">
+                      {description ||
+                        'This table runner features my hand-carved, block printed Floral Dots pattern in ...'}
+                    </p>
+                    <div className="listing-preview__swatches" aria-hidden="true">
+                      {SWATCHES.map((color) => (
+                        <span
+                          key={color}
+                          className="listing-preview__swatch"
+                          style={{ background: color }}
+                        />
+                      ))}
                     </div>
-                  </motion.div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        </>
+                  </div>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
       ) : null}
 
       <div className="listing-layout">
@@ -584,7 +481,7 @@ export function ListingForm({
                   onChange={(e) => setPrice(e.target.value.replace(/[^\d.]/g, ''))}
                 />
               </div>
-              <p className="body-base">Listings like yours usually go for...</p>
+              <PriceTip />
             </div>
           </QuestionStep>
 
@@ -657,55 +554,20 @@ export function ListingForm({
           >
             <h2 className="section-title">Help buyers find your item</h2>
 
-            <div className="field-block">
-              <p className="field-label">Tags</p>
-              <div className="typeahead">
-                <div className="typeahead__chips">
-                  {tags.map((tag) => (
-                    <Chip
-                      key={tag}
-                      label={tag}
-                      selected
-                      onRemove={() => setTags((t) => t.filter((x) => x !== tag))}
-                    />
-                  ))}
-                  <span className="typeahead__placeholder">Add an option</span>
-                </div>
-                <Icon src={chevron} size={24} />
-              </div>
-              <div className="suggest-row">
-                <p className="suggest-label-text">Suggested</p>
-                <div className="suggest-chips">
-                  {['tabletop', 'housewarming']
-                    .filter((t) => !tags.includes(t))
-                    .map((t) => (
-                      <Chip key={t} label={t} onAdd={() => setTags((prev) => [...prev, t])} />
-                    ))}
-                </div>
-              </div>
-            </div>
+            <ChipInput
+              id="tags"
+              label="Tags"
+              values={tags}
+              onChange={setTags}
+              suggestions={['tabletop', 'housewarming']}
+            />
 
-            <div className="field-block">
-              <p className="field-label">Materials</p>
-              <div className="typeahead">
-                <div className="typeahead__chips">
-                  {materials.map((m) => (
-                    <Chip
-                      key={m}
-                      label={m}
-                      selected
-                      onRemove={() => setMaterials((t) => t.filter((x) => x !== m))}
-                    />
-                  ))}
-                  <span className="typeahead__placeholder">Add an option</span>
-                </div>
-                <Icon src={chevron} size={24} />
-              </div>
-            </div>
-
-            <Button variant="tertiary" size="base" className="btn--block">
-              Show 12 more
-            </Button>
+            <ChipInput
+              id="materials"
+              label="Materials"
+              values={materials}
+              onChange={setMaterials}
+            />
           </QuestionStep>
 
           <QuestionStep

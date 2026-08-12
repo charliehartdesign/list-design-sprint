@@ -7,7 +7,7 @@ export function scrollToQuestion(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-/** Up/down question navigation — sits in the footer beside Publish. */
+/** Up/down question navigation — sits in the footer beside Next / Publish. */
 export function QuestionNav({ stepIds, activeId, onNavigate }) {
   const index = Math.max(0, stepIds.indexOf(activeId))
   const canUp = index > 0

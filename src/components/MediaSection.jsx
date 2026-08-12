@@ -1,6 +1,9 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { Icon } from './Icon'
 import { FieldPractices } from './FieldPractices'
+import { LoadingSpinner } from './LoadingSpinner'
+import { motionTokens } from '../motion/tokens'
 import addphoto from '../assets/icons/addphoto.svg'
 import add from '../assets/icons/add.svg'
 import chevron from '../assets/icons/chevron.svg'
@@ -39,10 +42,15 @@ function filesToMedia(fileList) {
 /**
  * Empty dropzone → filled 3-col media grid + Best practices panel (Figma 819:132976).
  * Controlled by parent `items` so state survives density switches.
+ * While practices evaluate, a few tiles show Collage spinners (~2s).
  */
 export function MediaSection({ mediaRef, items = [], onMediaChange }) {
   const [dragging, setDragging] = useState(false)
+  const [processingIds, setProcessingIds] = useState(() => new Set())
   const inputRef = useRef(null)
+  const ranProcessing = useRef(false)
+  const reducedMotion = useReducedMotion()
+  const { duration, ease } = motionTokens
 
   const commit = useCallback(
     (next) => {
@@ -87,6 +95,40 @@ export function MediaSection({ mediaRef, items = [], onMediaChange }) {
     done: def.test(items),
   }))
 
+  // Stagger “still processing” overlays while best practices evaluate (~2s)
+  useEffect(() => {
+    if (!filled) {
+      ranProcessing.current = false
+      setProcessingIds(new Set())
+      return undefined
+    }
+
+    if (ranProcessing.current || reducedMotion) return undefined
+    ranProcessing.current = true
+
+    // Leave the first couple tiles clear; process mid/late tiles for motion
+    const queue = items.slice(2, Math.min(items.length, 6)).map((item) => item.id)
+    if (!queue.length) return undefined
+
+    setProcessingIds(new Set(queue))
+
+    const timers = queue.map((id, index) =>
+      setTimeout(
+        () => {
+          setProcessingIds((prev) => {
+            const next = new Set(prev)
+            next.delete(id)
+            return next
+          })
+        },
+        // Align with FieldPractices reveal cadence (~280 + n×520)
+        520 + index * 420,
+      ),
+    )
+
+    return () => timers.forEach(clearTimeout)
+  }, [filled, items, reducedMotion])
+
   return (
     <div className="media-section" ref={mediaRef}>
       <div className={`media-section__main${filled ? ' media-section__main--filled' : ''}`}>
@@ -123,15 +165,35 @@ export function MediaSection({ mediaRef, items = [], onMediaChange }) {
             onDragOver={(e) => e.preventDefault()}
             onDrop={onDrop}
           >
-            {items.map((item) => (
-              <div key={item.id} className="media-grid__tile">
-                {item.kind === 'video' ? (
-                  <video src={item.src} className="media-grid__img" muted playsInline />
-                ) : (
-                  <img src={item.src} alt="" className="media-grid__img" />
-                )}
-              </div>
-            ))}
+            {items.map((item) => {
+              const processing = processingIds.has(item.id)
+              return (
+                <div
+                  key={item.id}
+                  className={`media-grid__tile${processing ? ' media-grid__tile--processing' : ''}`}
+                >
+                  {item.kind === 'video' ? (
+                    <video src={item.src} className="media-grid__img" muted playsInline />
+                  ) : (
+                    <img src={item.src} alt="" className="media-grid__img" />
+                  )}
+                  <AnimatePresence>
+                    {processing ? (
+                      <motion.div
+                        className="media-grid__processing"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: duration.fast, ease: ease.soft }}
+                        aria-hidden="true"
+                      >
+                        <LoadingSpinner size={28} />
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
             <button
               type="button"
               className="media-grid__tile media-grid__tile--add"

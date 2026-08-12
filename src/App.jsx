@@ -68,6 +68,23 @@ export default function App() {
     }
   }
 
+  const stepIndex = Math.max(0, QUESTION_STEPS.indexOf(activeQuestion))
+  const isLastStep = stepIndex >= QUESTION_STEPS.length - 1
+  const canPublish = contracted || isLastStep
+
+  const goToQuestion = (questionId) => {
+    if (!questionId) return
+    scrollToQuestion(questionId)
+    setActiveQuestion(questionId)
+    onNavFromSection(questionId)
+  }
+
+  const handlePrimaryAction = () => {
+    if (canPublish) return
+    const nextId = QUESTION_STEPS[stepIndex + 1]
+    goToQuestion(nextId)
+  }
+
   return (
     <div className={`app${contracted ? ' app--contracted' : ' app--expanded'}`}>
       <header className="top-bar">
@@ -119,10 +136,14 @@ export default function App() {
         </p>
         <div className="bottom-bar__actions">
           {!contracted ? (
-            <QuestionNav stepIds={QUESTION_STEPS} activeId={activeQuestion} />
+            <QuestionNav
+              stepIds={QUESTION_STEPS}
+              activeId={activeQuestion}
+              onNavigate={goToQuestion}
+            />
           ) : null}
-          <Button variant="primary" size="base">
-            Publish listing
+          <Button variant="primary" size="base" onClick={handlePrimaryAction}>
+            {canPublish ? 'Publish listing' : 'Next'}
           </Button>
         </div>
       </footer>

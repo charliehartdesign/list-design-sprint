@@ -27,6 +27,11 @@
   pointer-events: none;
 }
 
+.question-step--focused {
+  position: relative;
+  z-index: 2;
+}
+
 .question-step--focused .question-step__inner {
   pointer-events: auto;
 }
