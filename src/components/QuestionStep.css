@@ -17,6 +17,16 @@
   overflow: visible;
   will-change: opacity, transform, filter;
   cursor: default;
+  position: relative;
+}
+
+.question-step__sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .question-step:not(.question-step--focused) {

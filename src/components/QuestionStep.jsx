@@ -21,6 +21,7 @@ export function QuestionStep({
   density = 'expanded',
 }) {
   const ref = useRef(null)
+  const sentinelRef = useRef(null)
   const isFirst = !prevId
   const [focused, setFocused] = useState(isFirst)
   const { duration, ease, question } = motionTokens
@@ -44,32 +45,65 @@ export function QuestionStep({
       return () => observer.disconnect()
     }
 
-    // First question starts focused — announce so parent hides the top veil
+    // First question starts focused — never leave it peeking at page top
     if (isFirst) {
+      setFocused(true)
       onFocusChange?.(id, true)
     }
 
-    const peek = Number.parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue('--neighbor-peek'),
-    ) || 132
-    const inset = Math.round(peek * 0.55)
-    // No top inset on the first step so its header isn’t dimmed under the chrome
-    const topInset = isFirst ? 0 : inset
+    /*
+     * Observe a 1px sentinel at the step’s top (not the whole tall section).
+     * A short strip under the chrome is the “active line”. Ratio checks on
+     * #about were failing and leaving the first title in peeking opacity
+     * (~0.34 + blur), which looked like a white wash over the heading.
+     */
+    const styles = getComputedStyle(document.documentElement)
+    const chromeTop =
+      Number.parseFloat(styles.getPropertyValue('--chrome-top')) || 96
+    const peek =
+      Number.parseFloat(styles.getPropertyValue('--neighbor-peek')) || 132
+    // Cover both natural page-top (sentinel ~chromeTop) and snap align
+    // (sentinel ~chromeTop + peek from scroll-padding-top).
+    const band = peek + 48
+    const bottomCut = Math.max(0, window.innerHeight - chromeTop - band)
+    const target = sentinelRef.current ?? node
+
+    const applyFocus = (next) => {
+      // Hard lock: first step stays fully opaque while the page is at the top
+      if (isFirst && window.scrollY <= 8) {
+        setFocused(true)
+        onFocusChange?.(id, true)
+        return
+      }
+      setFocused(next)
+      onFocusChange?.(id, next)
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const next = entry.isIntersecting && entry.intersectionRatio >= 0.4
-        setFocused(next)
-        onFocusChange?.(id, next)
+        applyFocus(entry.isIntersecting)
       },
       {
-        threshold: [0.2, 0.4, 0.6, 0.8],
-        rootMargin: `-${topInset}px 0px -${inset}px 0px`,
+        threshold: 0,
+        rootMargin: `-${chromeTop}px 0px -${bottomCut}px 0px`,
       },
     )
 
-    observer.observe(node)
-    return () => observer.disconnect()
+    observer.observe(target)
+
+    const onScroll = () => {
+      if (isFirst && window.scrollY <= 8) {
+        setFocused(true)
+        onFocusChange?.(id, true)
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [id, onFocusChange, contracted, isFirst])
 
   useEffect(() => {
@@ -122,6 +156,7 @@ export function QuestionStep({
       onClick={activate}
       aria-current={stepActive ? 'step' : undefined}
     >
+      <div ref={sentinelRef} className="question-step__sentinel" aria-hidden="true" />
       <QuestionFocusContext.Provider value={stepActive}>
         <div className="question-step__inner">{children}</div>
       </QuestionFocusContext.Provider>
