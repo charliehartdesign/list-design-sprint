@@ -18,41 +18,42 @@ import './ui.css'
 
 const SWATCHES = ['#f08933', '#d0a089', '#dfdce0', '#b06378']
 
-// ── WestNinthVintage seed data (listing 4320446333) ──────────────────────────
+// ── StatementPeriod seed data (listing 4468610614 — Banded Agate Shark Fin Earrings) ──
 const DEMO_IMAGES = [
-  'https://i.etsystatic.com/7803638/r/il/105977/7243009177/il_1080xN.7243009177_b2lc.jpg',
-  'https://i.etsystatic.com/7803638/r/il/d93951/7761884849/il_794xN.7761884849_tvjs.jpg',
-  'https://i.etsystatic.com/7803638/r/il/a2747d/7713943354/il_794xN.7713943354_i4f4.jpg',
-  'https://i.etsystatic.com/7803638/r/il/11ea16/6939826544/il_794xN.6939826544_mgry.jpg',
-  'https://i.etsystatic.com/7803638/r/il/efa57e/6939826556/il_794xN.6939826556_gqjv.jpg',
-  'https://i.etsystatic.com/7803638/r/il/b15512/6939826554/il_794xN.6939826554_a3dr.jpg',
-  'https://i.etsystatic.com/7803638/r/il/3c075f/7186290922/il_794xN.7186290922_97xe.jpg',
-  'https://i.etsystatic.com/7803638/r/il/6fc93e/6939826932/il_794xN.6939826932_86ys.jpg',
-  'https://i.etsystatic.com/7803638/r/il/84b9c1/7713942588/il_794xN.7713942588_ayjd.jpg',
-  'https://i.etsystatic.com/7803638/r/il/473ee3/7195029214/il_794xN.7195029214_fot2.jpg',
-  'https://i.etsystatic.com/7803638/r/il/8352a3/7761884103/il_794xN.7761884103_8rhf.jpg',
+  'https://i.etsystatic.com/37012141/r/il/5221f2/7831065831/il_1080xN.7831065831_4xpz.jpg',
+  'https://i.etsystatic.com/37012141/r/il/8bc270/7831062979/il_794xN.7831062979_pb9k.jpg',
+  'https://i.etsystatic.com/37012141/r/il/98c059/7783137908/il_794xN.7783137908_9pp7.jpg',
+  'https://i.etsystatic.com/37012141/r/il/05dafc/7783137912/il_794xN.7783137912_34ji.jpg',
+  'https://i.etsystatic.com/37012141/r/il/62a262/7783137910/il_794xN.7783137910_nv32.jpg',
+  'https://i.etsystatic.com/37012141/r/il/206d9a/7831062983/il_794xN.7831062983_3btb.jpg',
+  'https://i.etsystatic.com/37012141/r/il/499071/7831063055/il_794xN.7831063055_3ao1.jpg',
+  'https://i.etsystatic.com/37012141/r/il/ce16b2/7831063053/il_794xN.7831063053_dfte.jpg',
+  'https://i.etsystatic.com/37012141/r/il/95a719/7783137964/il_794xN.7783137964_liok.jpg',
+  'https://i.etsystatic.com/37012141/r/il/028fd3/7831063049/il_794xN.7831063049_mvj8.jpg',
+  'https://i.etsystatic.com/37012141/r/il/110ee8/7831063051/il_794xN.7831063051_ksvs.jpg',
+  'https://i.etsystatic.com/37012141/r/il/f4d11b/7831063047/il_794xN.7831063047_i3iv.jpg',
 ]
-const DEMO_TITLE = 'Wedding Neon Sign, Neon Sign, LED Neon Sign, Personalized Birthday Gift, Family Name Neon Sign, Kids Room Decor, Wall Art, Bridesmaids Gifts'
-const DEMO_DESCRIPTION = 'We have the best neon quality along with quick customer service — write us and receive a price for your sign and a free mockup.\n\nOur personalized signs are made of high-quality LED flex. Unlike genuine glass neon signs (more expensive, fragile, and unsafe), our signs have a striking visual impact without the risk.\n\nEvery sign goes through a quality assurance test before it ships. Each one is individually boxed with a power adapter, plug with switch, and custom packaging designed to keep your sign safe in transit.\n\nWe ship via DHL and FedEx with insurance — fast, tracked, and free.'
-const DEMO_PRICE = '10.75'
-const DEMO_TAGS = ['neon sign', 'custom neon', 'wedding decor', 'LED sign', 'personalized', 'wall decor', 'home decor']
-const DEMO_MATERIALS = ['LED neon flex', 'acrylic']
-// ─────────────────────────────────────────────────────────────────────────────
+const DEMO_TITLE = 'Large Banded Agate Shark Fin Dangle Earrings with Peach Jade, Gold Accents - OOAK'
+const DEMO_DESCRIPTION = 'These sophisticated statement earrings showcase striking 51x37mm creamy-toned Banded Agate drops carved in a dramatic shark-fin silhouette. Each agate displays beautiful natural banding and organic inclusions that make every bead uniquely different, ensuring that no two pairs are exactly alike. The soft cream tones and flowing patterns create a refined, earthy elegance that highlights the natural beauty of the stone.\n\nResting above each agate drop is an 8mm Peach Red Jade bead, framed by petite 2mm gold-plated stainless steel rondelles. The warm jade accent draws out the subtle banding within the agate while introducing a graceful pop of color that complements the creamy stone and golden metalwork. Together, these elements create a harmonious palette that blends natural warmth with polished sophistication.\n\nThe beads are carefully hand strung on 22-gauge gold-plated copper jewelry wire, which connects seamlessly to the agate below and transitions upward into hand-formed 20-gauge gold-plated copper ear wires. This handcrafted construction enhances the artisan character of the earrings while ensuring durability and a cohesive design.\n\nMeasuring approximately 3.75 inches in length and about 1.5 inches wide, these earrings create a dramatic silhouette that beautifully frames the face and neckline. Each earring weighs approximately 0.75 ounces (22 grams). They pair effortlessly with upscale casual outfits, refined business attire, elegant evening ensembles, or special occasion looks such as weddings and formal events.\n\nList of materials:\n- 2mm Gold-Plated Stainless Steel Rondelles\n- 8mm Peach Red Jade Rounds (Alternative March/August Birthstone)\n- 10mm Golden Ring Links\n- 20g Gold-Plated Copper Jewelry Wire\n- 22g Gold-Plated Copper Jewelry Wire\n- 51x37mm Creamy-Toned Shark-Fin Shaped Banded Agate (Alternative May/June/September Birthstone)'
+const DEMO_PRICE = '65.00'
+const DEMO_TAGS = ['statement earrings', 'banded agate', 'dangle earrings', 'OOAK jewelry', 'handmade earrings', 'gemstone earrings', 'artisan jewelry', 'avant garde jewelry', 'peach jade', 'one of a kind']
+const DEMO_MATERIALS = ['Banded agate', 'Peach Red Jade', 'Gold-plated copper wire', 'Gold-plated stainless steel rondelles', 'Gold ring links']
+// ────────────────────────────────────────────────────────────────────────────────
 
 const TITLE_SUGGESTIONS = [
   {
-    label: "Lead with 'Custom' for personalization signal",
-    insert: 'Custom',
+    label: "Add 'Handmade' for artisan trust signal",
+    insert: 'Handmade',
     placement: 'start',
   },
   {
-    label: "Add 'LED' for searchability",
-    insert: 'LED',
+    label: "Add 'Avant Garde' for style clarity",
+    insert: 'Avant Garde',
     placement: 'end',
   },
   {
-    label: "Include 'Wedding' for category clarity",
-    insert: 'Wedding',
+    label: "Add 'Gift for Her' for discoverability",
+    insert: 'Gift for Her',
     placement: 'end',
   },
 ]
@@ -64,7 +65,6 @@ function applyTitleSuggestion(current, { insert, placement }) {
 
   if (placement === 'start') {
     if (!value) return insert
-    // Prefer Title Case lead-in; keep the rest of the existing title
     const rest = value.replace(/^[a-z]/, (c) => c.toLowerCase())
     return `${insert} ${rest}`
   }
@@ -167,10 +167,10 @@ export function ListingForm({
   const [showPreview, setShowPreview] = useState(false)
   const [mediaItems, setMediaItems] = useState(() =>
     DEMO_IMAGES.map((src, index) => ({
-      id: `westninth-${index}`,
+      id: `statement-${index}`,
       src,
       kind: 'image',
-      name: `neon-sign-${index + 1}.jpg`,
+      name: `banded-agate-earrings-${index + 1}.jpg`,
     })),
   )
   const reducedMotion = useReducedMotion()
@@ -243,7 +243,7 @@ export function ListingForm({
         location ? `From ${location}` : null,
         shopData?.active_listings != null ? `${shopData.active_listings.toLocaleString()} active listings` : null,
       ].filter(Boolean).join(' · ')
-    : 'From Conshohocken, PA · Ships free via DHL/FedEx'
+    : 'From Cedar Rapids, IA · Free shipping'
 
   const sideNav = (
     <aside className="side-nav" aria-label="Listing sections">
@@ -377,7 +377,7 @@ export function ListingForm({
                 <p className="category-line__text wt-text-heading-base">
                   It looks like this product's category is{' '}
                   <button type="button" className="dotted-link">
-                    Signs
+                    Dangle &amp; Drop Earrings
                   </button>
                 </p>
                 <Button
@@ -526,7 +526,7 @@ export function ListingForm({
                       <Icon src={edit} size={16} />
                     </button>
                   </div>
-                  <p className="body-small">4 variants detected based on your media</p>
+                  <p className="body-small">One of a kind — no size or color variations</p>
                 </div>
                 <Button variant="secondary" size="base" iconStart={<Icon src={add} size={12} />}>
                   Add variation
@@ -579,7 +579,7 @@ export function ListingForm({
               label="Tags"
               values={tags}
               onChange={setTags}
-              suggestions={['neon light', 'bridesmaids gift']}
+              suggestions={['bridal jewelry', 'sculptural earrings']}
             />
 
             <ChipInput
@@ -599,15 +599,15 @@ export function ListingForm({
             <h2 className="section-title">Shipping, processing, and returns</h2>
             <InfoRow
               title="Processing"
-              primary="Made to order"
-              secondary="Custom signs ship within 3–5 business days"
+              primary="Ready to ship"
+              secondary="Ships within 1-3 business days"
             />
             <InfoRow
               title="Shipping profile"
-              primary="DHL / FedEx (free)"
+              primary="Free shipping"
               secondary={shippingSecondary}
             />
-            <InfoRow title="Weight and dimensions" primary="Varies by sign size" />
+            <InfoRow title="Weight" primary="Approx. 0.75 oz (22g) per earring" />
           </QuestionStep>
 
           <QuestionStep
