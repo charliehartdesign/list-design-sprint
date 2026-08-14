@@ -165,14 +165,18 @@ export function ListingForm({
   const [whoMade, setWhoMade] = useState('I did')
   const [whatIsIt, setWhatIsIt] = useState('A finished product')
   const [showPreview, setShowPreview] = useState(false)
-  const [mediaItems, setMediaItems] = useState(() =>
-    DEMO_IMAGES.map((src, index) => ({
-      id: `statement-${index}`,
-      src,
-      kind: 'image',
-      name: `banded-agate-earrings-${index + 1}.jpg`,
-    })),
-  )
+  const [mediaItems, setMediaItems] = useState([])
+
+  const loadDemoImages = useCallback(() => {
+    setMediaItems(
+      DEMO_IMAGES.map((src, index) => ({
+        id: `statement-${index}`,
+        src,
+        kind: 'image',
+        name: `banded-agate-earrings-${index + 1}.jpg`,
+      })),
+    )
+  }, [])
   const reducedMotion = useReducedMotion()
   const handleQuestionFocus = useCallback(
     (id, focused) => {
@@ -363,6 +367,16 @@ export function ListingForm({
                 items={mediaItems}
                 onMediaChange={setMediaItems}
               />
+              {mediaItems.length === 0 && (
+                <button
+                  type="button"
+                  className="btn btn--secondary"
+                  style={{ marginTop: '12px' }}
+                  onClick={loadDemoImages}
+                >
+                  Load photos from your shop
+                </button>
+              )}
             </QuestionStep>
 
           <QuestionStep
