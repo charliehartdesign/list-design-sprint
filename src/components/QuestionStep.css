@@ -1,0 +1,71 @@
+.question-step {
+  /*
+   * Content-sized steps + form gap (--question-section-gap) so
+   * Media→Category, Options→Quantity, Quantity→Tags, etc. share the same air.
+   */
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--question-top-pad);
+  padding-bottom: 0;
+  width: 100%;
+  overflow: visible;
+  will-change: opacity, transform, filter;
+  cursor: default;
+  position: relative;
+}
+
+.question-step__sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.question-step:not(.question-step--focused) {
+  cursor: pointer;
+}
+
+.question-step:not(.question-step--focused) .question-step__inner {
+  pointer-events: none;
+}
+
+.question-step--focused {
+  position: relative;
+  z-index: 2;
+}
+
+.question-step--focused .question-step__inner {
+  pointer-events: auto;
+}
+
+.question-step__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.question-step--contracted {
+  cursor: default;
+  scroll-snap-align: none;
+}
+
+.question-step--contracted .question-step__inner {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question-step {
+    will-change: auto;
+  }
+}

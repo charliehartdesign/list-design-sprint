@@ -1,0 +1,32 @@
+.loading-spinner {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.loading-spinner__arc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2.5px solid #d5cdc8;
+  border-top-color: #222222;
+  border-right-color: #222222;
+  animation: loading-spinner-rotate 0.7s linear infinite;
+}
+
+@keyframes loading-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner__arc {
+    animation: none;
+    border-color: #d5cdc8;
+    border-top-color: #222222;
+    opacity: 0.85;
+  }
+}

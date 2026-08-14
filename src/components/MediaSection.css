@@ -1,0 +1,82 @@
+.media-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.media-section__main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Figma: ~64px between title and filled media grid */
+.media-section__main--filled {
+  gap: 64px;
+}
+
+.upload-area--dragging {
+  border-color: var(--text-primary);
+  background: var(--surface-tertiary);
+}
+
+/* Figma filled grid: ~3 cols, 204×249 tiles, ~21–24px gaps */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 21px;
+  width: 100%;
+}
+
+.media-grid__tile {
+  position: relative;
+  aspect-ratio: 204 / 249;
+  overflow: clip;
+  border-radius: 0;
+  background: var(--surface-tertiary);
+  padding: 0;
+  border: 0;
+}
+
+.media-grid__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media-grid__tile--processing .media-grid__img {
+  filter: brightness(0.92);
+}
+
+.media-grid__processing {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(250, 248, 245, 0.42);
+  pointer-events: none;
+}
+
+.media-grid__tile--add {
+  display: grid;
+  place-items: center;
+  background: var(--surface-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+
+.media-grid__tile--add:hover {
+  background: #e7e2df;
+  color: var(--text-primary);
+}
+
+/* Positioning override — FieldPractices supplies the shared rail styles */
+.media-section .media-practices {
+  top: calc(32px + 64px);
+}

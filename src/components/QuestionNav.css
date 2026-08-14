@@ -1,0 +1,72 @@
+.question-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Up (back) icon button — circle ghost */
+.question-nav__up {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--surface-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard),
+    opacity var(--motion-fast) var(--ease-standard);
+  flex-shrink: 0;
+}
+
+
+.question-nav__up:hover:not(:disabled) {
+  background: #e7e2df;
+}
+
+.question-nav__up:active:not(:disabled) {
+  background: #ddd7d3;
+}
+
+.question-nav__up:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Forward pill — dark capsule with section name + down arrow */
+.question-nav__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--text-primary);
+  color: #faf8f5;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+
+.question-nav__next .icon img {
+  filter: invert(1);
+}
+
+.question-nav__next:hover {
+  background: #000;
+}
+
+.question-nav__next:active {
+  background: #1a1a1a;
+}
+
+/* Publish state — same pill, slightly warmer */
+.question-nav__next--publish {
+  background: var(--text-primary);
+}

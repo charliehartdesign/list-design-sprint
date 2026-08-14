@@ -1,0 +1,16 @@
+.ai-orange-square {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.ai-orange-square__mark {
+  display: block;
+  flex-shrink: 0;
+  background: var(--text-brand, #f1641e);
+  transform-origin: center center;
+}

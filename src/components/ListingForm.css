@@ -1,0 +1,710 @@
+.listing-layout {
+  display: grid;
+  grid-template-columns: var(--side-nav-width) minmax(0, var(--content-width));
+  column-gap: var(--form-offset-from-nav);
+  width: 100%;
+  max-width: calc(
+    24px + var(--side-nav-width) + var(--form-offset-from-nav) + var(--content-width) + 298px
+  );
+  margin: 0;
+  /* Extra right pad so Best practices panel (226 + 48 gap) isn't clipped */
+  padding: 0 298px 140px 24px;
+  justify-content: start;
+  justify-items: start;
+  align-items: start;
+  overflow: visible;
+}
+
+.side-nav {
+  position: sticky;
+  top: var(--chrome-top);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: var(--side-nav-width);
+  padding-top: 24px;
+}
+
+.side-nav__item {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  letter-spacing: -0.14px;
+  text-align: left;
+}
+
+.side-nav__item--active,
+.side-nav__item:hover {
+  background: var(--surface-tertiary);
+}
+
+.listing-main {
+  position: relative;
+  width: 100%;
+  max-width: var(--content-width);
+  justify-self: start;
+  overflow: visible;
+}
+
+/* Figma 819:131040 / 819:131357 — locked bottom-left preview */
+.listing-preview-slot {
+  position: fixed;
+  left: 24px;
+  bottom: calc(var(--chrome-bottom) + 24px);
+  width: 200px;
+  pointer-events: none;
+  z-index: 16;
+}
+
+.listing-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 200px;
+  pointer-events: none;
+}
+
+.listing-preview__media {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: var(--surface-tertiary);
+}
+
+.listing-preview__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.listing-preview__title {
+  margin: 0;
+  font-family: var(--clg-title-larger-font-family);
+  font-weight: var(--clg-title-larger-font-weight);
+  /* Scaled down from Title Larger so the mini card doesn’t dominate */
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listing-preview__title--placeholder {
+  color: var(--text-tertiary);
+}
+
+.listing-preview__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.listing-preview__price,
+.listing-preview__desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.13px;
+}
+
+.listing-preview__price {
+  color: var(--text-secondary);
+}
+
+.listing-preview__desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: var(--text-primary);
+}
+
+.listing-preview__swatches {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 17px;
+  margin-top: 0;
+}
+
+.listing-preview__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-divider);
+  box-sizing: border-box;
+}
+
+.listing-form {
+  display: flex;
+  flex-direction: column;
+  /* Figma: 100px between Media↔Category, Options↔Quantity, and siblings */
+  gap: var(--question-section-gap);
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0;
+  padding-bottom: 48px;
+  overflow: visible;
+}
+
+.form-section,
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  scroll-margin-top: 0;
+}
+
+.section-title {
+  margin: 0;
+}
+
+.subsection-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--clg-title-large-font-size);
+  font-weight: 700;
+  line-height: var(--clg-title-large-line-height);
+  letter-spacing: var(--clg-title-large-letter-spacing);
+}
+
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.field-block--cards {
+  gap: 24px; /* Figma grid/300 between label and selectable cards */
+}
+
+/* Title / price: more air between Title Larger label and Display Large input */
+.field-block--display {
+  gap: 32px;
+}
+
+.field-label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--clg-title-base-font-size);
+  font-weight: 700;
+  line-height: var(--clg-title-base-line-height);
+  letter-spacing: var(--clg-title-base-letter-spacing);
+}
+
+.field-help {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  color: var(--text-secondary);
+}
+
+.body-base {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+}
+
+.body-small {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-primary);
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  min-height: 407px;
+  padding: 48px 24px;
+  border: 1px dashed var(--border-placeholder);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: center;
+}
+
+.upload-area__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.upload-area__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+}
+
+.upload-area__sub {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: var(--text-secondary);
+}
+
+.tip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 357px;
+}
+
+.tip p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.tip--category {
+  max-width: 420px;
+}
+
+.category-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  max-width: 656px;
+}
+
+.category-empty .field-block {
+  gap: 16px;
+}
+
+/* Same hug-content rule as Add variation / Add custom option */
+.category-empty .field-block > .btn {
+  align-self: flex-start;
+  width: auto;
+}
+
+.category-empty .field-help {
+  margin: 0;
+}
+
+.tip__heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.16px;
+}
+
+.category-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 656px;
+}
+
+/* Figma Group 1739331072: orange mark → heading → tertiary */
+.category-line__mark {
+  margin-bottom: 15px;
+}
+
+.category-line__text {
+  margin: 0 0 36px;
+  width: 100%;
+  max-width: 654px;
+  /* Heading Base is 24/24 — allow natural 2-line wrap like Figma’s 64px text box */
+  color: var(--text-primary);
+}
+
+.dotted-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: #736b68;
+  text-underline-offset: 4px;
+  text-decoration-skip-ink: none;
+}
+
+.textarea-shell {
+  position: relative;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  min-height: 258px;
+  padding: 8px 12px 48px;
+  background: transparent;
+}
+
+.textarea-shell textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 0;
+  resize: vertical;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+}
+
+.textarea-shell textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.textarea-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 18px;
+  display: flex;
+  gap: 32px;
+}
+
+.text-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+}
+
+.display-input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--text-primary);
+}
+
+/* Listing title — Collage Display Large, multi-line */
+.display-input--title {
+  display: block;
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  field-sizing: content;
+  font-family: var(--clg-display-large-font-family);
+  font-weight: var(--clg-display-large-font-weight);
+  font-size: var(--clg-display-large-font-size);
+  line-height: var(--clg-display-large-line-height);
+  letter-spacing: var(--clg-display-large-letter-spacing);
+  border-bottom: 1px dotted #d5cdc8;
+  padding: 8px 0 4px;
+  font-feature-settings: "lnum" 1, "pnum" 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: var(--clg-display-large-line-height);
+}
+
+.display-input--title::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+.display-input-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  min-height: var(--clg-display-large-line-height);
+}
+
+/* Price — Collage Display Large (empty state uses tertiary) */
+.display-input--figure {
+  font-family: var(--clg-display-large-font-family);
+  font-weight: var(--clg-display-large-font-weight);
+  font-size: var(--clg-display-large-font-size);
+  line-height: var(--clg-display-large-line-height);
+  letter-spacing: var(--clg-display-large-letter-spacing);
+  color: var(--text-tertiary);
+  width: auto;
+  max-width: 100%;
+  font-feature-settings: "lnum" 1, "pnum" 1;
+}
+
+.display-input--figure:focus,
+.display-input-wrap:focus-within .display-input--figure {
+  color: var(--text-primary);
+}
+
+.suggest-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.suggest-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.suggest-label-text {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12px;
+  color: var(--text-secondary);
+}
+
+.suggest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  font-size: 14px;
+  line-height: 16px;
+  background: var(--surface-tertiary);
+  color: var(--text-primary);
+}
+
+.chip--soft {
+  font-weight: 400;
+}
+
+.chip--selected {
+  background: var(--chip-selected-bg);
+  color: var(--chip-selected-text);
+  border-color: transparent;
+  gap: 8px;
+}
+
+.chip--suggest {
+  background: var(--chip-suggest-bg);
+  font-weight: 700;
+}
+
+.chip__remove {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.subblock {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 24px;
+}
+
+/* Figma: Add variation / Add custom option — hug content, not full width */
+.subblock > .btn {
+  align-self: flex-start;
+  width: auto;
+}
+
+.variation-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-divider);
+}
+
+.typeahead {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+}
+
+.typeahead__chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.typeahead__placeholder {
+  color: var(--text-tertiary);
+  font-size: 16px;
+  letter-spacing: -0.16px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  width: 100%;
+}
+
+.info-row__label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+}
+
+.info-row__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-divider);
+  border-radius: var(--radius-sm);
+}
+
+.info-row__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.info-row__primary {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+}
+
+.info-row__secondary {
+  margin: 0;
+  font-size: 14px;
+  line-height: 18.2px;
+  letter-spacing: -0.14px;
+  color: var(--text-secondary);
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 16px; /* Figma grid/200 */
+  width: 100%;
+}
+
+.selectable-card {
+  /* Equal-width cards in the row (Figma Selectable card) */
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 96px;
+  padding: 16px;
+  border: 1.5px solid var(--border-divider);
+  border-radius: var(--radius-md);
+  background: transparent;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.selectable-card--selected {
+  border-color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px var(--text-primary);
+}
+
+/* Figma: Show 12 more — full content width × 48 */
+.btn--block {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.btn--tertiary.btn--block {
+  /* Stretch hit area while keeping tertiary underline treatment */
+  padding-inline: 0;
+  min-height: 48px;
+}
+
+@media (max-width: 1100px) {
+  .listing-layout {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding: 0 24px 140px;
+  }
+
+  .side-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 0;
+    gap: 4px;
+  }
+
+  .listing-main {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .display-input--title,
+  .display-input--figure {
+    font-size: var(--clg-display-large-font-size);
+    line-height: var(--clg-display-large-line-height);
+    letter-spacing: var(--clg-display-large-letter-spacing);
+  }
+
+  .category-line__text {
+    font-size: var(--clg-heading-base-font-size);
+    line-height: var(--clg-heading-base-line-height);
+  }
+}

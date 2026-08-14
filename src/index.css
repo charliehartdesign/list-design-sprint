@@ -1,0 +1,245 @@
+/* Collage typefaces — Title Larger uses ABCDiatype Bold */
+@font-face {
+  font-family: "ABCDiatype";
+  src: url("./assets/fonts/ABCDiatype-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCDiatype";
+  src: url("./assets/fonts/ABCDiatype-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCDiatype";
+  src: url("./assets/fonts/ABCDiatype-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCOtto";
+  src: url("./assets/fonts/ABCOtto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCOtto";
+  src: url("./assets/fonts/ABCOtto-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABCOtto";
+  src: url("./assets/fonts/ABCOtto-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --chrome-top: 96px;
+  --chrome-bottom: 96px;
+  --question-top-pad: 36px;
+  /* How much of the previous/next question stays visible at the edges */
+  --neighbor-peek: 132px;
+  /* Figma column gap between major sections */
+  --question-section-gap: 100px;
+
+  /* Motion */
+  --motion-fast: 180ms;
+  --motion-base: 280ms;
+  --motion-slow: 420ms;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Figma semantic tokens (List Create Design Sprint) */
+  --surface-primary: #faf8f5;
+  --surface-tertiary: #efecea;
+  --text-primary: #312b36;
+  --text-secondary: #665e5c;
+  --text-tertiary: #736b68;
+  --text-brand: #f1641e;
+  --border-divider: #e0dad6;
+  --border-placeholder: rgba(14, 14, 14, 0.4);
+  --input-border: #928681;
+  --chip-selected-bg: #312b36;
+  --chip-selected-text: #faf8f5;
+  --chip-suggest-bg: rgba(51, 20, 0, 0.05);
+  --button-primary-bg: #222222;
+  --button-primary-text: #ffffff;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-full: 9999px;
+
+  /* Collage type families */
+  --font-sans: "ABCDiatype", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "ABCOtto", "Iowan Old Style", Palatino, Georgia, serif;
+
+  /*
+   * Collage Title Larger
+   * typography/semantic/product/title/mobile/larger
+   * Figma resolves to ABC Diatype Bold / 24 / 32 / -0.48
+   */
+  --clg-title-larger-font-family: var(--font-sans);
+  --clg-title-larger-font-weight: 700;
+  --clg-title-larger-font-size: 24px;
+  --clg-title-larger-line-height: 32px;
+  --clg-title-larger-letter-spacing: -0.48px;
+
+  /*
+   * Collage Heading Base
+   * typography/semantic/product/heading/mobile/base
+   * Figma resolves to ABC Otto Regular / 24 / 24 / -1.2
+   */
+  --clg-heading-base-font-family: var(--font-display);
+  --clg-heading-base-font-weight: 400;
+  --clg-heading-base-font-size: 24px;
+  --clg-heading-base-line-height: 24px;
+  --clg-heading-base-letter-spacing: -1.2px;
+
+  /*
+   * Collage Display Large
+   * typography/semantic/product/display/mobile/large
+   * ABC Otto Regular / 64 / 64 / -5% (−3.2px)
+   */
+  --clg-display-large-font-family: var(--font-display);
+  --clg-display-large-font-weight: 400;
+  --clg-display-large-font-size: 64px;
+  --clg-display-large-line-height: 64px;
+  --clg-display-large-letter-spacing: -3.2px;
+
+  /*
+   * Collage Display Larger (price in some frames)
+   * ABC Otto Regular / 80 / 80 / -5% (−4px)
+   */
+  --clg-display-larger-font-family: var(--font-display);
+  --clg-display-larger-font-weight: 400;
+  --clg-display-larger-font-size: 80px;
+  --clg-display-larger-line-height: 80px;
+  --clg-display-larger-letter-spacing: -4px;
+
+  /* Related title tokens used in the form */
+  --clg-title-large-font-size: 20px;
+  --clg-title-large-line-height: 24px;
+  --clg-title-large-letter-spacing: -0.4px;
+  --clg-title-base-font-size: 16px;
+  --clg-title-base-line-height: 20px;
+  --clg-title-base-letter-spacing: 0.16px;
+  --clg-title-small-font-size: 14px;
+  --clg-title-small-line-height: 16px;
+
+  --content-width: 656px;
+  --side-nav-width: 221px;
+  /* Figma: form column ~470, side panel 221 → ~249px gutter */
+  --form-offset-from-nav: 249px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* Leave room so previous/next peeks stay in view when a step snaps */
+  scroll-padding-top: calc(var(--chrome-top) + var(--neighbor-peek));
+  scroll-padding-bottom: calc(var(--chrome-bottom) + var(--neighbor-peek));
+}
+
+/* Contracted: continuous scroll, denser section rhythm (Figma review spacing cue) */
+/* Contracted uses the Review form layout (Figma 666:75480), not denser Typeform */
+html[data-density='contracted'] {
+  scroll-snap-type: none;
+  scroll-padding-top: var(--chrome-top);
+  scroll-padding-bottom: var(--chrome-bottom);
+  --neighbor-peek: 0px;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--surface-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Collage Title Larger utility */
+.wt-text-title-larger,
+.section-title {
+  font-family: var(--clg-title-larger-font-family);
+  font-weight: var(--clg-title-larger-font-weight);
+  font-size: var(--clg-title-larger-font-size);
+  line-height: var(--clg-title-larger-line-height);
+  letter-spacing: var(--clg-title-larger-letter-spacing);
+  color: var(--text-primary);
+}
+
+/* Collage Heading Base utility */
+.wt-text-heading-base {
+  font-family: var(--clg-heading-base-font-family);
+  font-weight: var(--clg-heading-base-font-weight);
+  font-size: var(--clg-heading-base-font-size);
+  line-height: var(--clg-heading-base-line-height);
+  letter-spacing: var(--clg-heading-base-letter-spacing);
+  color: var(--text-primary);
+  font-feature-settings: "lnum" 1, "pnum" 1;
+}
+
+.wt-text-display-large {
+  font-family: var(--clg-display-large-font-family);
+  font-weight: var(--clg-display-large-font-weight);
+  font-size: var(--clg-display-large-font-size);
+  line-height: var(--clg-display-large-line-height);
+  letter-spacing: var(--clg-display-large-letter-spacing);
+  font-feature-settings: "lnum" 1, "pnum" 1;
+}

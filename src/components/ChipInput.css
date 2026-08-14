@@ -1,0 +1,22 @@
+.typeahead__input {
+  flex: 1;
+  min-width: 8ch;
+  margin: 0;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.typeahead__input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.typeahead:focus-within {
+  border-color: var(--text-primary);
+}
