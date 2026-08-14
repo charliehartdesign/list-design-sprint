@@ -18,41 +18,39 @@ import './ui.css'
 
 const SWATCHES = ['#f08933', '#d0a089', '#dfdce0', '#b06378']
 
-// ── WestNinthVintage seed data (listing 4320446333) ──────────────────────────
+// ── ShuaybiHealthAndHome seed data (listing 4469411215 — Bestseller) ─────────
 const DEMO_IMAGES = [
-  'https://i.etsystatic.com/7803638/r/il/105977/7243009177/il_1080xN.7243009177_b2lc.jpg',
-  'https://i.etsystatic.com/7803638/r/il/d93951/7761884849/il_794xN.7761884849_tvjs.jpg',
-  'https://i.etsystatic.com/7803638/r/il/a2747d/7713943354/il_794xN.7713943354_i4f4.jpg',
-  'https://i.etsystatic.com/7803638/r/il/11ea16/6939826544/il_794xN.6939826544_mgry.jpg',
-  'https://i.etsystatic.com/7803638/r/il/efa57e/6939826556/il_794xN.6939826556_gqjv.jpg',
-  'https://i.etsystatic.com/7803638/r/il/b15512/6939826554/il_794xN.6939826554_a3dr.jpg',
-  'https://i.etsystatic.com/7803638/r/il/3c075f/7186290922/il_794xN.7186290922_97xe.jpg',
-  'https://i.etsystatic.com/7803638/r/il/6fc93e/6939826932/il_794xN.6939826932_86ys.jpg',
-  'https://i.etsystatic.com/7803638/r/il/84b9c1/7713942588/il_794xN.7713942588_ayjd.jpg',
-  'https://i.etsystatic.com/7803638/r/il/473ee3/7195029214/il_794xN.7195029214_fot2.jpg',
-  'https://i.etsystatic.com/7803638/r/il/8352a3/7761884103/il_794xN.7761884103_8rhf.jpg',
+  'https://i.etsystatic.com/36718618/r/il/1749c2/7788443650/il_1080xN.7788443650_42uo.jpg',
+  'https://i.etsystatic.com/36718618/r/il/fc4ef7/7836371653/il_794xN.7836371653_eg40.jpg',
+  'https://i.etsystatic.com/36718618/r/il/0b056d/7788472188/il_794xN.7788472188_2vvi.jpg',
+  'https://i.etsystatic.com/36718618/r/il/93f453/7836400431/il_794xN.7836400431_38qi.jpg',
+  'https://i.etsystatic.com/36718618/r/il/a3aafe/7836400335/il_794xN.7836400335_qbk0.jpg',
+  'https://i.etsystatic.com/36718618/r/il/58bb27/7788472208/il_794xN.7788472208_n0vf.jpg',
+  'https://i.etsystatic.com/36718618/r/il/83cd4b/7836402909/il_794xN.7836402909_ajyr.jpg',
+  'https://i.etsystatic.com/36718618/r/il/8d14c6/7836403679/il_794xN.7836403679_9rj9.jpg',
+  'https://i.etsystatic.com/36718618/r/il/580a22/7836371707/il_794xN.7836371707_l81w.jpg',
 ]
-const DEMO_TITLE = 'Wedding Neon Sign, Neon Sign, LED Neon Sign, Personalized Birthday Gift, Family Name Neon Sign, Kids Room Decor, Wall Art, Bridesmaids Gifts'
-const DEMO_DESCRIPTION = 'We have the best neon quality along with quick customer service — write us and receive a price for your sign and a free mockup.\n\nOur personalized signs are made of high-quality LED flex. Unlike genuine glass neon signs (more expensive, fragile, and unsafe), our signs have a striking visual impact without the risk.\n\nEvery sign goes through a quality assurance test before it ships. Each one is individually boxed with a power adapter, plug with switch, and custom packaging designed to keep your sign safe in transit.\n\nWe ship via DHL and FedEx with insurance — fast, tracked, and free.'
-const DEMO_PRICE = '10.75'
-const DEMO_TAGS = ['neon sign', 'custom neon', 'wedding decor', 'LED sign', 'personalized', 'wall decor', 'home decor']
-const DEMO_MATERIALS = ['LED neon flex', 'acrylic']
+const DEMO_TITLE = 'Lymphatic Support Herbal Tea Blend: Cleavers, Echinacea, Dandelion Root, Organic Herbs'
+const DEMO_DESCRIPTION = 'This herbal tea blend is a gentle yet supportive part of a daily wellness routine. Naturally caffeine-free, it has an earthy, slightly sweet flavor that pairs beautifully with a touch of lemon or raw honey.\n\nHandcrafted in small batches with organic, wildcrafted, non-GMO herbs. Comes with clear directions on tea preparation. Packed in eco-friendly kraft paper bags.\n\nSuggested Use:\n1. Pour 1 cup of boiling water onto 1 heaped tablespoon of tea blend.\n2. Cover and steep for 5-10 minutes.\n3. Add raw honey or lemon if desired.\n4. Strain and enjoy hot or iced. 1-3 cups/day for best results.\n\nIngredients: Organic Echinacea, Organic Dandelion Root, Organic Calendula, Organic Cleavers, Organic Red Clover, Organic Burdock Root.\n\nAbout Us: We are a small homesteading family in East Texas dedicated to crafting natural wellness products. Every item is handmade with care using homegrown or organically sourced ingredients — no chemicals, preservatives, fragrance oils, or synthetic packaging. Just nature\'s best in every product.'
+const DEMO_PRICE = '10.00'
+const DEMO_TAGS = ['herbal tea', 'lymphatic support', 'organic tea', 'caffeine free tea', 'wellness tea', 'dandelion root', 'echinacea', 'loose leaf tea', 'natural remedies', 'herbal blend']
+const DEMO_MATERIALS = ['Organic Echinacea', 'Organic Dandelion Root', 'Organic Calendula', 'Organic Cleavers', 'Organic Red Clover', 'Organic Burdock Root']
 // ─────────────────────────────────────────────────────────────────────────────
 
 const TITLE_SUGGESTIONS = [
   {
-    label: "Lead with 'Custom' for personalization signal",
-    insert: 'Custom',
+    label: "Add 'Organic' for trust signal",
+    insert: 'Organic',
     placement: 'start',
   },
   {
-    label: "Add 'LED' for searchability",
-    insert: 'LED',
+    label: "Add 'Caffeine Free' for searchability",
+    insert: 'Caffeine Free',
     placement: 'end',
   },
   {
-    label: "Include 'Wedding' for category clarity",
-    insert: 'Wedding',
+    label: "Include 'Loose Leaf' for category clarity",
+    insert: 'Loose Leaf',
     placement: 'end',
   },
 ]
@@ -167,10 +165,10 @@ export function ListingForm({
   const [showPreview, setShowPreview] = useState(false)
   const [mediaItems, setMediaItems] = useState(() =>
     DEMO_IMAGES.map((src, index) => ({
-      id: `westninth-${index}`,
+      id: `shuaybi-${index}`,
       src,
       kind: 'image',
-      name: `neon-sign-${index + 1}.jpg`,
+      name: `lymphatic-tea-${index + 1}.jpg`,
     })),
   )
   const reducedMotion = useReducedMotion()
@@ -377,7 +375,7 @@ export function ListingForm({
                 <p className="category-line__text wt-text-heading-base">
                   It looks like this product's category is{' '}
                   <button type="button" className="dotted-link">
-                    Signs
+                    Tea
                   </button>
                 </p>
                 <Button
@@ -526,7 +524,7 @@ export function ListingForm({
                       <Icon src={edit} size={16} />
                     </button>
                   </div>
-                  <p className="body-small">4 variants detected based on your media</p>
+                  <p className="body-small">4 size variants: 1 oz, 2 oz, 4 oz, 6 oz</p>
                 </div>
                 <Button variant="secondary" size="base" iconStart={<Icon src={add} size={12} />}>
                   Add variation
@@ -579,7 +577,7 @@ export function ListingForm({
               label="Tags"
               values={tags}
               onChange={setTags}
-              suggestions={['neon light', 'bridesmaids gift']}
+              suggestions={['wildcrafted herbs', 'postpartum wellness']}
             />
 
             <ChipInput
@@ -600,14 +598,14 @@ export function ListingForm({
             <InfoRow
               title="Processing"
               primary="Made to order"
-              secondary="Custom signs ship within 3–5 business days"
+              secondary="Handcrafted in small batches, ships within 1-3 business days"
             />
             <InfoRow
               title="Shipping profile"
-              primary="DHL / FedEx (free)"
+              primary="USPS ($5.75)"
               secondary={shippingSecondary}
             />
-            <InfoRow title="Weight and dimensions" primary="Varies by sign size" />
+            <InfoRow title="Weight" primary="Varies by size (1 oz – 6 oz)" />
           </QuestionStep>
 
           <QuestionStep
